@@ -6,11 +6,19 @@ $msg = "";
 if (isset($_POST['username']) && isset($_POST['password'])) {
     require "connexion.php";
     //import variables
+    $userName = $_POST['username'];
+    $password = $_POST['password'];
 
     $req = $db->prepare("SELECT * FROM `users` where username =? AND password =?");
     $req->execute([$userName, $password]);
     $user = $req->fetch();
     //test user existance and manipulate session
+    if ($user){
+        $_SESSION['user'] = $user;
+        header("location:index.php");
+    }else{
+        $msg = "userName or password incorrect";
+    }
 }
 
 ?>

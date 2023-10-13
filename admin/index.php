@@ -3,6 +3,9 @@ session_start();
 if (!isset($_SESSION['user']))
     header("location:/login.php");
 // user role must be admin, chek for it!
+if($_SESSION['user']['role']!="admin"){
+    die("you are not allowed to access this page !");
+}
 
 
 require "../connexion.php";
